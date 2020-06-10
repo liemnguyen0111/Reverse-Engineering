@@ -1,0 +1,87 @@
+1. Starting off with server.js file:
+    +npm packages+
+        - express : using this package to create a server
+        - express-session :using this package to create a user session
+    
+    +passport+
+        + Using file passport.js in the folder ./config
+            +npm packages+
+                - passport : this package allow to validate a user login.
+                - passport-local : this use to create a local strategy of how we want to check 
+                                    on the user before granting the access.
+                
+            + Using file that we created in the folder ../models
+            (use strict - Allow the machine to throw an error when there is an bad syntax)
+                +npm packages+
+                    - fs (file sync) : use to read/write to a file.
+                    - path : use to get the path of the file name.
+                    - Sequelize : is a database ORM that is used to handle data in mysql.
+                    
+                - basename : telling the path npm package to use the basename or basically getting
+                            the root name of the file on the machine.
+                - env : grabbing the enviroment variable if existed or using the development variable  
+                        in the config.json file located in the folder ./config
+                - config : grabbing the variables that were created in the ./config/config.js
+                - db : an empty object used to reserve the info after line 24
+
+                - if the enviroment varialbe is available then create a new sequelize using 
+                  the info stored in that variable else use the varialbe that was created in the    
+                  config.json file in ./config folder.
+
+                - then filter through all the file in the development folder and return any files
+                  that the path is not starting with . or basename or .js extension
+                - then loop through the array that we just filtered and create a new model and
+                  store it in the db variable.
+
+                - Object.keys(db) will allow us to grab each property name in the object and then 
+                  loop through each property, then check if db[modelName].associate is true,
+                  then set the db property into db[modelName].associate(db)
+                
+                - Assign sequelize into the sequelize property in db and Sequelize into the Sequelize 
+                  property into Sequelize.
+                
+                - then export db out for passport.js to use
+            
+            - Telling the password to use the LocalStrategy to to the check and return the result
+              whether depend on the check.
+
+            - Export passport out for for server.js to use
+        
+        +Setting up port and require models for syncing+
+            - Variable PORT create to store if there is any PORT available in the enviroment if not use port 8080
+            - Variable db require the variable that was exported out from the ./models folder.
+
+        +Middleware+
+            - create an app and telling it to use express()
+            - Telling app to accept urlencoded, json and use the public folder.
+            - Telling app to use session to keep track of the user's login with 
+              passport
+
+        +Routes+
+            + import the routes that we create in the ./routes folder
+              
+                +api-routes+
+                    - Routes that created for user login/signup and grabbing user info.
+                
+                +html-routes+ (.html files located in the public folder)
+                    +- Routes that created to return the html file to the user depend on 
+                      the user status.
+                        +login.html+ 
+                            - login.js
+                            - style.js
+                        +signup.html+
+                            - signup.js
+                            - style.js
+                        +members.html+
+                            - member.js
+                            - style.js
+        
+        +Create connection+
+    
+
+
+
+        
+                
+
+                
